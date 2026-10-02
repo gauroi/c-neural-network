@@ -7,7 +7,10 @@ typedef struct {
     int cols;
 } Matrix;
 
-Matrix create_matrix(int rows, int cols)
-void free_matrix(Matrix* mat)
+Matrix create_matrix(int rows, int cols);
+void free_matrix(Matrix* mat);
+
+void save_weights(Matrix* mat, const char* filename);
+void load_weights(Matrix* mat, const char* filename);
 
 #endif
