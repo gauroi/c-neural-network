@@ -1,0 +1,16 @@
+# Compiled executables
+*.exe
+*.out
+ai_model
+
+# Object files
+*.o
+
+# IDE settings
+.vscode/
+
+# Binary neural network weights
+*.bin
+
+# Log files
+*.log
