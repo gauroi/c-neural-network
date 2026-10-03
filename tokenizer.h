@@ -9,5 +9,5 @@ typedef struct {
 Tokenizer create_tokenizer(const char* vocab);
 void free_tokenizer(Tokenizer* tkz);
 
-int* encode(Tokenizer* tkz, const char* text, int* arr_size);
-char* decode(Tokenizer* tkz, const int* tokens, int arr_size);
+int* encode(Tokenizer* tkz, const char* text, size_t* tokens_count);
+char* decode(Tokenizer* tkz, const int* tokens, size_t tokens_count);

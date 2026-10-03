@@ -27,24 +27,29 @@ void free_tokenizer(Tokenizer* tkz)
 }
 
 
-int* encode(Tokenizer* tkz, const char* text, int* arr_size)
+int* encode(Tokenizer* tkz, const char* text, size_t* tokens_count)
 {
-    *arr_size = strlen(text);
-    int* tokens = malloc(*(arr_size) * sizeof(*tokens));
+    *tokens_count = strlen(text);
+    int* tokens = malloc(*(tokens_count) * sizeof(*tokens));
 
-    for (int i = 0; i < *arr_size; i++) {
+    if (tokens == NULL) {
+        printf("malloc error!");
+        exit(1);
+    }
+
+    for (size_t i = 0; i < *tokens_count; i++) {
         char* ptr = strchr(tkz->vocab, text[i]);
         if (ptr == NULL) {
             tokens[i] = tkz->vocab_size;
-            continue;
         }
-        tokens[i] = (ptr - tkz->vocab);
+        else {
+            tokens[i] = (ptr - tkz->vocab);    
+        }    
     }
-
     return tokens;
 }
 
-char* decode(Tokenizer* tkz, const int* tokens, int tokens_count)
+char* decode(Tokenizer* tkz, const int* tokens, size_t tokens_count)
 {
     char* response = malloc(tokens_count * sizeof(*response) + 1);
     if (response == NULL) {
@@ -52,12 +57,13 @@ char* decode(Tokenizer* tkz, const int* tokens, int tokens_count)
         exit(1);
     }
 
-    for(int i = 0; i < tokens_count; i++) {
-        if (tokens[i] == tkz->vocab_size) {
+    for(size_t i = 0; i < tokens_count; i++) {
+        if (tokens[i] < 0 || tokens[i] >= tkz->vocab_size) {
             response[i] = '#';
-            continue;
         }
-        response[i] = tkz->vocab[tokens[i]];
+        else {
+            response[i] = tkz->vocab[tokens[i]];
+        }
     }
 
     response[tokens_count] = '\0';
