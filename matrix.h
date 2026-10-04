@@ -13,4 +13,7 @@ void free_matrix(Matrix* mat);
 void save_weights(Matrix* mat, const char* filename);
 void load_weights(Matrix* mat, const char* filename);
 
+void rand_matrix(Matrix* mat, float min, float max);
+
+
 #endif

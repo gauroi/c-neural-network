@@ -61,3 +61,11 @@ void load_weights(Matrix* mat, const char* filename)
     printf("weights are loaded.\n");
     fclose(file);
 }
+
+
+void rand_matrix(Matrix* mat, float min, float max)
+{
+    for (int i = 0; i < mat->rows * mat->cols; i++) {
+        mat->data[i] = min + ((float)rand() / (float)RAND_MAX) * (max - min); 
+    }
+}
