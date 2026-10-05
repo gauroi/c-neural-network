@@ -40,7 +40,8 @@ int* encode(Tokenizer* tkz, const char* text, size_t* tokens_count)
     for (size_t i = 0; i < *tokens_count; i++) {
         char* ptr = strchr(tkz->vocab, text[i]);
         if (ptr == NULL) {
-            tokens[i] = tkz->vocab_size;
+            char* ptrc = strchr(tkz->vocab, ' ');
+            tokens[i] = (ptrc - tkz->vocab);
         }
         else {
             tokens[i] = (ptr - tkz->vocab);    

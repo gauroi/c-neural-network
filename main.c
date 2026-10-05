@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 
 int main(void)
@@ -17,6 +18,10 @@ int main(void)
     char text[256];
     if (fgets(text, sizeof(text), stdin)) {
         text[strcspn(text, "\n")] = '\0';
+    }
+
+    for (int i = 0; text[i] != '\0'; i++) {
+        text[i] = tolower((unsigned char)text[i]);
     }
 
     int* tokens = encode(&tokenizer, text, &tokens_count);
