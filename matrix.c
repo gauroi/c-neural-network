@@ -69,3 +69,25 @@ void rand_matrix(Matrix* mat, float min, float max)
         mat->data[i] = min + ((float)rand() / (float)RAND_MAX) * (max - min); 
     }
 }
+
+
+Matrix matrix_multiply(const Matrix* a, const Matrix* b)
+{
+    if (a->cols != b->rows) {
+        printf("matrix multiply error!\n");
+        exit(4);
+    }
+
+    Matrix matrix = create_matrix(a->rows, b->cols);
+    for (int i = 0; i < a->rows; i++) {
+        for (int j = 0; j < b->cols; j++) {
+            float sum = 0;
+            for (int d = 0; d < a->cols; d++) {
+                sum += a->data[i * a->cols + d] * b->data[d * b->cols + j];
+            }
+            matrix.data[i * matrix.cols + j] = sum;
+        }
+    }
+
+    return matrix;
+}
