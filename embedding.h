@@ -2,6 +2,8 @@
 #define EMBEDDING_H
 
 #include "matrix.h"
+#include <stdlib.h>
+
 #define EMBEDDING_DIM 16
 
 typedef struct {
@@ -13,6 +15,6 @@ typedef struct {
 EmbeddingLayer create_embedding_layer(int vocab_size, size_t emb_dim);
 void free_embedding_layer(EmbeddingLayer* emb_layer);
 
-Matrix forward_embedding(EmbeddingLayer* emb_layer, int* tokens, size_t tokens_count);
+Matrix forward_embedding(EmbeddingLayer* emb_layer, const int* tokens, size_t tokens_count);
 
 #endif

@@ -1,6 +1,7 @@
 #include "embedding.h"
 #include "matrix.h"
-#include <stdlib.h>
+#include <stddef.h>
+#include <string.h>
 
 
 EmbeddingLayer create_embedding_layer(int vocab_size, size_t emb_dim)
