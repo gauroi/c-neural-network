@@ -17,4 +17,6 @@ void rand_matrix(Matrix* mat, float min, float max);
 
 Matrix matrix_multiply(const Matrix* a, const Matrix* b);
 
+void ReLU(Matrix* matrix);
+
 #endif

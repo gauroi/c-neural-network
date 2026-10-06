@@ -91,3 +91,10 @@ Matrix matrix_multiply(const Matrix* a, const Matrix* b)
 
     return matrix;
 }
+
+
+void ReLU(Matrix* matrix) {
+    for (int i = 0; i < matrix->rows * matrix->cols; i++) {
+        matrix->data[i] = matrix->data[i] < 0 ? 0.0f : matrix->data[i];
+    }
+}
