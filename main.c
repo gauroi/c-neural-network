@@ -1,4 +1,5 @@
 #include "matrix.h"
+#include "linear.h"
 #include "tokenizer.h"
 #include "embedding.h"
 #include <stdio.h>
@@ -11,6 +12,7 @@ int main(void)
 {
     Tokenizer tokenizer = create_tokenizer("abcdefghijklmnopqrstuvwxyz ,.?");
     EmbeddingLayer embLayer = create_embedding_layer(tokenizer.vocab_size, EMBEDDING_DIM);
+    LinearLayer linearLayer = create_linear_layer(EMBEDDING_DIM, HIDDEN_DIM);
 
     size_t tokens_count = 0;
 
@@ -27,15 +29,20 @@ int main(void)
     int* tokens = encode(&tokenizer, text, &tokens_count);
     Matrix embeddings = forward_embedding(&embLayer, tokens, tokens_count);
 
-    for (int i = 0; i < embeddings.rows; i++) {
-        for (int j = 0; j < embeddings.cols; j++) {
-            printf("%f ", embeddings.data[i * embeddings.cols + j]);
+    Matrix response = forward_linear(&linearLayer, &embeddings);
+    ReLU(&response);
+
+    for (int i = 0; i < tokens_count; i++) {
+        for(int j = 0; j < HIDDEN_DIM; j++) {
+            printf("%f ", response.data[i * response.cols + j]);
         }
         puts("");
     }
 
+
     free_matrix(&embeddings);
     free(tokens);
+    free_linear_layer(&linearLayer);
     free_embedding_layer(&embLayer);
     free_tokenizer(&tokenizer);
 
