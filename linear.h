@@ -1,0 +1,22 @@
+#ifndef LINEAR_H
+#define LINEAR_H
+
+#define HIDDEN_DIM 64
+
+#include "matrix.h"
+#include "embedding.h"
+#include <stddef.h>
+
+
+typedef struct {
+    Matrix weights;
+    Matrix biases;
+} LinearLayer;
+
+
+LinearLayer create_linear_layer(size_t in_features, size_t out_features);
+void free_linear_layer(LinearLayer* linearLayer);
+Matrix forward_linear(LinearLayer* linearLayer, const Matrix* input);
+
+
+#endif
