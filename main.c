@@ -13,6 +13,7 @@ int main(void)
     Tokenizer tokenizer = create_tokenizer("abcdefghijklmnopqrstuvwxyz ,.?");
     EmbeddingLayer embLayer = create_embedding_layer(tokenizer.vocab_size, EMBEDDING_DIM);
     LinearLayer linearLayer = create_linear_layer(EMBEDDING_DIM, HIDDEN_DIM);
+    LinearLayer outputLayer = create_linear_layer(HIDDEN_DIM, tokenizer.vocab_size);
 
     size_t tokens_count = 0;
 
@@ -32,16 +33,21 @@ int main(void)
     Matrix response = forward_linear(&linearLayer, &embeddings);
     ReLU(&response);
 
+    Matrix logits = forward_linear(&outputLayer, &response);
+    softmax(&logits);
+
     for (int i = 0; i < tokens_count; i++) {
-        for(int j = 0; j < HIDDEN_DIM; j++) {
-            printf("%f ", response.data[i * response.cols + j]);
+        for(int j = 0; j < tokenizer.vocab_size; j++) {
+            printf("%f ", logits.data[i * logits.cols + j]);
         }
         puts("");
     }
 
 
-    free_matrix(&embeddings);
     free(tokens);
+    free_matrix(&embeddings);
+    free_matrix(&logits);
+    free_linear_layer(&outputLayer);
     free_linear_layer(&linearLayer);
     free_embedding_layer(&embLayer);
     free_tokenizer(&tokenizer);
