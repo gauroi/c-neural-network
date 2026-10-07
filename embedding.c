@@ -22,6 +22,18 @@ void free_embedding_layer(EmbeddingLayer* embLayer)
 }
 
 
+void save_embedding_layer(const EmbeddingLayer* emb_layer, FILE* file)
+{
+    save_weights(&emb_layer->mat, file);
+}
+
+
+void load_embedding_layer(EmbeddingLayer* emb_layer, FILE* file)
+{
+    load_weights(&emb_layer->mat, file);
+}
+
+
 Matrix forward_embedding(EmbeddingLayer* emb_layer, const int* tokens, size_t tokens_count)
 {
     Matrix embeddings = create_matrix(tokens_count, EMBEDDING_DIM);
