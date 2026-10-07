@@ -16,7 +16,10 @@ typedef struct {
 
 LinearLayer create_linear_layer(size_t in_features, size_t out_features);
 void free_linear_layer(LinearLayer* linearLayer);
-Matrix forward_linear(LinearLayer* linearLayer, const Matrix* input);
 
+void save_linear_layer(const LinearLayer* linearLayer, FILE* file);
+void load_linear_layer(LinearLayer* linearLayer, FILE* file);
+
+Matrix forward_linear(LinearLayer* linearLayer, const Matrix* input);
 
 #endif

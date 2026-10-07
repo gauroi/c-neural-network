@@ -24,6 +24,20 @@ void free_linear_layer(LinearLayer* linearLayer)
 }
 
 
+void save_linear_layer(const LinearLayer* linearLayer, FILE* file)
+{
+    save_weights(&linearLayer->weights, file);
+    save_weights(&linearLayer->biases, file);
+}
+
+
+void load_linear_layer(LinearLayer* linearLayer, FILE* file)
+{
+    load_weights(&linearLayer->weights, file);
+    load_weights(&linearLayer->biases, file);
+}
+
+
 Matrix forward_linear(LinearLayer* linearLayer, const Matrix* input)
 {
     Matrix response = matrix_multiply(input, &linearLayer->weights);
