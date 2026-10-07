@@ -1,6 +1,7 @@
 #include "matrix.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 
 Matrix create_matrix(int rows, int cols)
@@ -93,8 +94,28 @@ Matrix matrix_multiply(const Matrix* a, const Matrix* b)
 }
 
 
-void ReLU(Matrix* matrix) {
+void ReLU(Matrix* matrix) 
+{
     for (int i = 0; i < matrix->rows * matrix->cols; i++) {
         matrix->data[i] = matrix->data[i] < 0 ? 0.0f : matrix->data[i];
+    }
+}
+
+
+void softmax(Matrix* matrix)
+{
+    for (int i = 0; i < matrix->rows; i++) {
+        float sum = 0.0f;
+
+        for (int j = 0; j < matrix->cols; j++) {
+            int index = i * matrix->cols +j;
+            matrix->data[index] = expf(matrix->data[index]);
+            sum += matrix->data[index];
+        }
+
+        for (int d = 0; d < matrix->cols; d++) {
+            int index = i * matrix->cols + d;
+            matrix->data[index] = matrix->data[index] / sum;
+        }
     }
 }
