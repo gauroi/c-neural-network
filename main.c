@@ -8,6 +8,23 @@
 #include <ctype.h>
 
 
+void save_network(const char* filename, EmbeddingLayer* emb_layer, LinearLayer* hidden_layer, LinearLayer* output_layer)
+{
+    FILE* file = fopen(filename, "wb");
+    if (file == NULL) {
+        printf("Open file error!");
+        exit(3);
+    }
+
+    save_embedding_layer(emb_layer, file);
+    save_linear_layer(hidden_layer, file);
+    save_linear_layer(output_layer, file);
+
+    fclose(file);
+    printf("network saved successfully.\n");
+}
+
+
 int main(void)
 {
     Tokenizer tokenizer = create_tokenizer("abcdefghijklmnopqrstuvwxyz ,.?");
