@@ -1,4 +1,5 @@
 #ifndef MATRIX_H
+#include <stdio.h>
 #define MATRIX_H
 
 typedef struct {
@@ -10,8 +11,8 @@ typedef struct {
 Matrix create_matrix(int rows, int cols);
 void free_matrix(Matrix* mat);
 
-void save_weights(Matrix* mat, const char* filename);
-void load_weights(Matrix* mat, const char* filename);
+void save_weights(const Matrix* mat, FILE* file);
+void load_weights(Matrix* mat, FILE* file);
 
 void rand_matrix(Matrix* mat, float min, float max);
 

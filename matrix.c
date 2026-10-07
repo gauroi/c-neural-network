@@ -29,9 +29,8 @@ void free_matrix(Matrix* mat)
 }
 
 
-void save_weights(Matrix* mat, const char* filename)
+void save_weights(const Matrix* mat, FILE* file)
 {
-    FILE* file = fopen(filename, "wb");
     if (file == NULL) {
         printf("Open file error!\n");
         exit(3);
@@ -41,13 +40,11 @@ void save_weights(Matrix* mat, const char* filename)
     fwrite(mat->data, sizeof(*mat->data), mat->rows * mat->cols, file);
 
     printf("weights are saved.\n");
-    fclose(file);
 }
 
 
-void load_weights(Matrix* mat, const char* filename)
+void load_weights(Matrix* mat, FILE* file)
 {
-    FILE* file = fopen(filename, "rb");
     if (file == NULL) {
         printf("Open file error!\n");
         exit(3);
@@ -60,7 +57,6 @@ void load_weights(Matrix* mat, const char* filename)
     fread(mat->data, sizeof(*mat->data), mat->rows * mat->cols, file);
 
     printf("weights are loaded.\n");
-    fclose(file);
 }
 
 
