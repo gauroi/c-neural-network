@@ -111,3 +111,16 @@ void softmax(Matrix* matrix)
         }
     }
 }
+
+
+void matrix_update(Matrix* matrix, const Matrix* gradient, float lr)
+{
+    if (matrix->rows != gradient->rows || matrix->cols != gradient->cols) {
+        printf("matrix update error!");
+        exit(5);
+    }
+    
+    for (int i = 0; i < matrix->rows * matrix->cols; i++) {
+        matrix->data[i] = matrix->data[i] - (gradient->data[i] * lr);
+    }
+}
