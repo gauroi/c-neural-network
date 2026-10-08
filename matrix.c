@@ -38,8 +38,6 @@ void save_weights(const Matrix* mat, FILE* file)
     fwrite(&(mat->rows), sizeof(int), 1, file);
     fwrite(&(mat->cols), sizeof(int), 1, file);
     fwrite(mat->data, sizeof(*mat->data), mat->rows * mat->cols, file);
-
-    printf("weights are saved.\n");
 }
 
 
@@ -55,8 +53,6 @@ void load_weights(Matrix* mat, FILE* file)
     mat->data = malloc(mat->rows * mat->cols * sizeof(*mat->data));
 
     fread(mat->data, sizeof(*mat->data), mat->rows * mat->cols, file);
-
-    printf("weights are loaded.\n");
 }
 
 
