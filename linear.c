@@ -9,9 +9,12 @@ LinearLayer create_linear_layer(size_t in_features, size_t out_features)
     LinearLayer layer;
     layer.weights = create_matrix(in_features, out_features);
     layer.biases = create_matrix(1, out_features);
+    layer.gradient_weights = create_matrix(in_features, out_features);
+    layer.gradient_biases = create_matrix(1, out_features);
 
     rand_matrix(&layer.weights, -0.1, 0.1);
     rand_matrix(&layer.biases, -0.1, 0.1);
+
 
     return layer;
 }
@@ -21,6 +24,8 @@ void free_linear_layer(LinearLayer* linearLayer)
 {
     free_matrix(&linearLayer->weights);
     free_matrix(&linearLayer->biases);
+    free_matrix(&linearLayer->gradient_weights);
+    free_matrix(&linearLayer->gradient_biases);
 }
 
 

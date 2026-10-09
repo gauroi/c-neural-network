@@ -11,6 +11,8 @@
 typedef struct {
     Matrix weights;
     Matrix biases;
+    Matrix gradient_weights;
+    Matrix gradient_biases;
 } LinearLayer;
 
 
