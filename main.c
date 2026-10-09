@@ -1,5 +1,6 @@
 #include "matrix.h"
 #include "linear.h"
+#include "loss.h"
 #include "tokenizer.h"
 #include "embedding.h"
 #include <stdio.h>
@@ -71,18 +72,16 @@ int main(void)
     Matrix logits = forward_linear(&outputLayer, &response);
     softmax(&logits);
 
-    for (int i = 0; i < tokens_count; i++) {
-        for(int j = 0; j < tokenizer.vocab_size; j++) {
-            printf("%f ", logits.data[i * logits.cols + j]);
-        }
-        puts("");
-    }
+    float loss = 0.0f;
+    loss = cross_entropy_loss(&logits, tokens + 1, tokens_count - 1);
 
+    printf("loss: %f\n", loss);
 
     save_network("weights.bin", &embLayer, &linearLayer, &outputLayer);
 
     free(tokens);
     free_matrix(&embeddings);
+    free_matrix(&response);
     free_matrix(&logits);
     free_linear_layer(&outputLayer);
     free_linear_layer(&linearLayer);
