@@ -115,6 +115,14 @@ void ReLU(Matrix* matrix)
 }
 
 
+void backward_ReLU(Matrix* gradient, const Matrix* response)
+{
+    for (int i = 0; i < response->rows * response->cols; i++) {
+        if (response->data[i] == 0.0f) gradient->data[i] = 0;
+    }
+}
+
+
 void softmax(Matrix* matrix)
 {
     for (int i = 0; i < matrix->rows; i++) {
