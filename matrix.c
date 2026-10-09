@@ -94,6 +94,19 @@ Matrix matrix_multiply(const Matrix* a, const Matrix* b)
 }
 
 
+Matrix matrix_transpose(const Matrix* matrix)
+{
+    Matrix mat = create_matrix(matrix->cols, matrix->rows);
+    for (int i = 0; i < matrix->rows; i++) {
+        for (int j = 0; j < matrix->cols; j++) {
+            mat.data[j * mat.cols + i] = matrix->data[i * matrix->cols + j];
+        }
+    }
+
+    return mat;
+}
+
+
 void ReLU(Matrix* matrix) 
 {
     for (int i = 0; i < matrix->rows * matrix->cols; i++) {

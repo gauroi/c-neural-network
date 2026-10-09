@@ -55,3 +55,25 @@ Matrix forward_linear(LinearLayer* linearLayer, const Matrix* input)
 
     return response;
 }
+
+
+Matrix backward_linear(LinearLayer* linearLayer, const Matrix* input, const Matrix* gradient_out)
+{
+    zero_matrix(&linearLayer->gradient_biases);
+    for (int i = 0; i < gradient_out->rows; i++) {
+        for (int j = 0; j < gradient_out->cols; j++) {
+            linearLayer->gradient_biases.data[j] += gradient_out->data[i * gradient_out->cols + j];
+        }
+    }
+
+    Matrix input_temp = matrix_transpose(input);
+    free_matrix(&linearLayer->gradient_weights);
+    linearLayer->gradient_weights = matrix_multiply(&input_temp, gradient_out);
+    free_matrix(&input_temp);
+
+    Matrix weights_temp = matrix_transpose(&linearLayer->weights);
+    Matrix gradient_input = matrix_multiply(gradient_out, &weights_temp);
+    free_matrix(&weights_temp);
+    
+    return gradient_input;
+}

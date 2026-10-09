@@ -18,6 +18,7 @@ void rand_matrix(Matrix* mat, float min, float max);
 void zero_matrix(Matrix* mat);
 
 Matrix matrix_multiply(const Matrix* a, const Matrix* b);
+Matrix matrix_transpose(const Matrix* matrix);
 
 void ReLU(Matrix* matrix);
 void softmax(Matrix* matrix);

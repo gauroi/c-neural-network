@@ -23,5 +23,6 @@ void save_linear_layer(const LinearLayer* linearLayer, FILE* file);
 void load_linear_layer(LinearLayer* linearLayer, FILE* file);
 
 Matrix forward_linear(LinearLayer* linearLayer, const Matrix* input);
+Matrix backward_linear(LinearLayer* linearLayer, const Matrix* input, const Matrix* gradient_out);
 
 #endif
