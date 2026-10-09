@@ -64,6 +64,14 @@ void rand_matrix(Matrix* mat, float min, float max)
 }
 
 
+void zero_matrix(Matrix* mat)
+{
+    for (int i = 0; i < mat->rows * mat->cols; i++) {
+        mat->data[i] = 0.0f;
+    }
+}
+
+
 Matrix matrix_multiply(const Matrix* a, const Matrix* b)
 {
     if (a->cols != b->rows) {

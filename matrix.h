@@ -15,6 +15,7 @@ void save_weights(const Matrix* mat, FILE* file);
 void load_weights(Matrix* mat, FILE* file);
 
 void rand_matrix(Matrix* mat, float min, float max);
+void zero_matrix(Matrix* mat);
 
 Matrix matrix_multiply(const Matrix* a, const Matrix* b);
 
