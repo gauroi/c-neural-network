@@ -19,5 +19,6 @@ void save_embedding_layer(const EmbeddingLayer* emb_layer, FILE* file);
 void load_embedding_layer(EmbeddingLayer* emb_layer, FILE* file);
 
 Matrix forward_embedding(EmbeddingLayer* emb_layer, const int* tokens, size_t tokens_count);
+void backward_embedding(EmbeddingLayer* emb_layer, const Matrix* gradient_embeddings, const int *tokens, int symbols_count, float lr);
 
 #endif

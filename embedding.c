@@ -1,5 +1,6 @@
 #include "embedding.h"
 #include "matrix.h"
+#include "linear.h"
 #include <stddef.h>
 #include <string.h>
 
@@ -49,4 +50,15 @@ Matrix forward_embedding(EmbeddingLayer* emb_layer, const int* tokens, size_t to
     }
 
     return embeddings;
+}
+
+
+void backward_embedding(EmbeddingLayer* emb_layer, const Matrix* gradient_embeddings, const int *tokens, int symbols_count, float lr)
+{
+    for (int i = 0; i < symbols_count; i++) {
+        int index = tokens[i];
+        for (int j = 0; j < EMBEDDING_DIM; j++) {
+            emb_layer->mat.data[index * emb_layer->mat.cols + j] -= lr * gradient_embeddings->data[i * gradient_embeddings->cols + j];
+        }
+    }
 }
