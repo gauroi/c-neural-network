@@ -26,4 +26,6 @@ void softmax(Matrix* matrix);
 
 void matrix_update(Matrix* matrix, const Matrix* gradient, float lr);
 
+int matrix_argmax(const Matrix* mat, int row);
+
 #endif

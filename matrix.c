@@ -153,3 +153,17 @@ void matrix_update(Matrix* matrix, const Matrix* gradient, float lr)
         matrix->data[i] = matrix->data[i] - (gradient->data[i] * lr);
     }
 }
+
+
+int matrix_argmax(const Matrix* mat, int row)
+{
+    int index = 0;
+    float max = mat->data[row * mat->cols + 0];
+    for (int i = 0; i < mat->cols; i++) {
+        if (mat->data[row * mat->cols + i] > max) {
+            max = mat->data[row * mat->cols + i];
+            index = i;
+        }
+    }
+    return index;
+}
