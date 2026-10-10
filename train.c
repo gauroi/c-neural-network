@@ -45,5 +45,5 @@ void train_network(EmbeddingLayer* emb_layer, LinearLayer* hidden_layer, LinearL
     }
 
     free(tokens);
-    printf("training has be successfully!");
+    printf("training has be successfully!\n");
 }

@@ -34,5 +34,5 @@ void load_network(const char* filename, EmbeddingLayer* emb_layer, LinearLayer* 
     load_linear_layer(output_layer, file);
 
     fclose(file);
-    printf("weights loaded successfully.\n\n");
+    printf("weights loaded successfully.\n");
 }
