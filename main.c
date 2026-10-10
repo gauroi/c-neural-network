@@ -11,6 +11,38 @@
 #include <ctype.h>
 
 
+char* generate_text(int length, EmbeddingLayer* emb_layer, LinearLayer* hidden_layer, LinearLayer* output_layer, Tokenizer* tkz, const char* text)
+{
+    
+    size_t tokens_count = 0;
+    int* tokens = encode(tkz, text, &tokens_count);
+
+    char* text_response = malloc(1000 * sizeof(*text_response));
+
+    for (int i = 0; i < length; i++) {
+        Matrix embeddings = forward_embedding(emb_layer, tokens, tokens_count);
+        Matrix response = forward_linear(hidden_layer, &embeddings);
+        ReLU(&response);
+        Matrix logits = forward_linear(output_layer, &response);
+        softmax(&logits);
+
+        int current_symbol = matrix_argmax(&logits, logits.rows - 1);
+        
+        text_response[i] = tkz->vocab[current_symbol];
+
+        tokens = realloc(tokens, sizeof(*tokens) * (tokens_count + 1));
+        tokens[tokens_count] = current_symbol;
+        tokens_count++;
+
+        free_matrix(&embeddings);
+        free_matrix(&response);
+        free_matrix(&logits);
+    }
+    text_response[length] = '\0';
+    free(tokens);
+    return text_response;
+}
+
 int main(void)
 {
     Tokenizer tokenizer = create_tokenizer("abcdefghijklmnopqrstuvwxyz ,.?");
