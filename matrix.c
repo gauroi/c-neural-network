@@ -126,11 +126,18 @@ void backward_ReLU(Matrix* gradient, const Matrix* response)
 void softmax(Matrix* matrix)
 {
     for (int i = 0; i < matrix->rows; i++) {
+        
+        float maxNum = matrix->data[i * matrix->cols + 0];
+        for (int s = 0; s < matrix->cols; s++) {
+            int index = i * matrix->cols + s;
+            if (matrix->data[index] > maxNum) maxNum = matrix->data[index];
+        }
+
         float sum = 0.0f;
 
         for (int j = 0; j < matrix->cols; j++) {
             int index = i * matrix->cols +j;
-            matrix->data[index] = expf(matrix->data[index]);
+            matrix->data[index] = expf(matrix->data[index] - maxNum);
             sum += matrix->data[index];
         }
 

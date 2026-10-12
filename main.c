@@ -52,27 +52,6 @@ int main(void)
 
     load_network("weights.bin", &embLayer, &linearLayer, &outputLayer);
 
-    // size_t tokens_count = 0;
-
-    // printf("enter message: ");
-    // char text[256];
-    // if (fgets(text, sizeof(text), stdin)) {
-    //     text[strcspn(text, "\n")] = '\0';
-    // }
-
-    // for (int i = 0; text[i] != '\0'; i++) {
-    //     text[i] = tolower((unsigned char)text[i]);
-    // }
-
-    // int* tokens = encode(&tokenizer, text, &tokens_count);
-    // Matrix embeddings = forward_embedding(&embLayer, tokens, tokens_count);
-
-    // Matrix response = forward_linear(&linearLayer, &embeddings);
-    // ReLU(&response);
-
-    // Matrix logits = forward_linear(&outputLayer, &response);
-    // softmax(&logits);
-
     train_network(&embLayer, &linearLayer, &outputLayer, &tokenizer, "hello", 20000, 0.01f);
 
     save_network("weights.bin", &embLayer, &linearLayer, &outputLayer);
