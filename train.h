@@ -8,6 +8,6 @@
 #include "loss.h"
 #include <stdio.h>
 
-void train_network(EmbeddingLayer* emb_layer, LinearLayer* hidden_layer, LinearLayer* output_layer, Tokenizer* tkz, const char* text, int cycles, float lr);
+void train_network(EmbeddingLayer* emb_layer, LinearLayer* hidden_layer, LinearLayer* output_layer, Tokenizer* tkz, const char* text, int cycles, float lr, int context_size);
 
 #endif

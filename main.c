@@ -10,7 +10,7 @@
 #include <string.h>
 #include <ctype.h>
 
-#define CONTEXT_SIZE 4
+#define CONTEXT_SIZE 8
 
 char* generate_text(int length, EmbeddingLayer* emb_layer, LinearLayer* hidden_layer, LinearLayer* output_layer, Tokenizer* tkz, const char* text)
 {
@@ -62,6 +62,19 @@ char* generate_text(int length, EmbeddingLayer* emb_layer, LinearLayer* hidden_l
 
 int main(void)
 {
+    const char* dataset = 
+    "hello. how are you? hello, how are things? hi, how is it going? "
+    "hello there, how have you been? hi, what is up? hello, how are you doing today? "
+    "i am doing great, thank you. i am fine, how are you? everything is good. "
+    "hello, it is nice to meet you. hi there, nice to see you again. "
+    "how are you? i am very well, thanks. what is up? not much, just chilling. "
+    "hello, how is your day going? it is going great. hi, how are you? i am ok. "
+    "hello friend, how are you? hi, how are you? i am good, how about you? "
+    "good morning, how are you today? morning, i am doing well. "
+    "good evening, how was your day? it was busy but good, thanks for asking. "
+    "what are you up to? nothing much. how is life? life is beautiful friend. "
+    "hello, can you help me? yes, i can help you. how are you? i am great.";
+
     Tokenizer tokenizer = create_tokenizer("abcdefghijklmnopqrstuvwxyz ,.?");
     EmbeddingLayer embLayer = create_embedding_layer(tokenizer.vocab_size, EMBEDDING_DIM);
     LinearLayer linearLayer = create_linear_layer(CONTEXT_SIZE * EMBEDDING_DIM, HIDDEN_DIM);
@@ -69,9 +82,9 @@ int main(void)
 
     load_network("weights.bin", &embLayer, &linearLayer, &outputLayer);
 
-    //train_network(&embLayer, &linearLayer, &outputLayer, &tokenizer, "hello", 20000, 0.01f);
+    //train_network(&embLayer, &linearLayer, &outputLayer, &tokenizer, dataset, 700, 0.001f, CONTEXT_SIZE);
 
-    char* buff = generate_text(30, &embLayer, &linearLayer, &outputLayer, &tokenizer, "hel");
+    char* buff = generate_text(60, &embLayer, &linearLayer, &outputLayer, &tokenizer, "hello");
     printf("%s\n", buff);
 
     save_network("weights.bin", &embLayer, &linearLayer, &outputLayer);

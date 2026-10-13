@@ -17,7 +17,7 @@ void save_network(const char* filename, EmbeddingLayer* emb_layer, LinearLayer* 
     save_linear_layer(output_layer, file);
 
     fclose(file);
-    printf("weights saved successfully.\n");
+    printf("weights saved successfully.\n\n");
 }
 
 
@@ -34,5 +34,5 @@ void load_network(const char* filename, EmbeddingLayer* emb_layer, LinearLayer* 
     load_linear_layer(output_layer, file);
 
     fclose(file);
-    printf("weights loaded successfully.\n");
+    printf("weights loaded successfully.\n\n");
 }
